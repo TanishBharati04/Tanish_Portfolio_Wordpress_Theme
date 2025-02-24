@@ -23,6 +23,8 @@
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
 
+        <?php get_search_form(); ?>
+
         <button id="toggle-btn">
             <svg width="30" height="30" id="dark-icon">
                 <path 

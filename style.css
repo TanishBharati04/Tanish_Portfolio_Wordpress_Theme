@@ -4,3 +4,42 @@
     Author: Tanish Bharati
     Version: 1.0
  */
+
+
+ #post-content {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+.featured-image img {
+    width: 100%;
+    border-radius: 10px;
+}
+.post-meta {
+    font-size: 14px;
+    color: gray;
+    margin-bottom: 10px;
+}
+.post-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+#page-content {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .featured-image img {
+    width: 100%;
+    border-radius: 30px;
+  }
+  
+  .content {
+    background-color: blue;
+  }
