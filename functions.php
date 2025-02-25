@@ -76,3 +76,42 @@ function create_project_post_type() {
     register_post_type('project', $args);
 }
 add_action('init', 'create_project_post_type');
+
+// Layout for custom post type => custom_single.php
+function create_portfolio_post_type() {
+    $labels = array(
+        'name'               => __('Portfolio'),
+        'singular_name'      => __('Portfolio'),
+        'menu_name'          => __('Portfolio Items'),
+        'name_admin_bar'     => __('Portfolio'),
+        'add_new'            => __('Add New'),
+        'add_new_item'       => __('Add New Portfolio Item'),
+        'new_item'           => __('New Portfolio Item'),
+        'edit_item'          => __('Edit Portfolio Item'),
+        'view_item'          => __('View Portfolio Items'),
+        'all_items'          => __('All Portfolio Items'),
+        'search_items'       => __('Search Portfolio\'s'),
+        'not_found'          => __('No portfolio\'s found'),
+        'not_found_in_trash' => __('No portfolio\'s found in Trash')
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array('slug' => 'portfolio\'s'),
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'hierarchical'       => false,
+        'menu_position'      => 5,
+        'supports'           => array('title', 'editor', 'thumbnail', 'excerpt', 'comments', 'custom-fields', 'revisions'),
+        'taxonomies'         => array('category', 'post_tag'), // Enables categories & tags like blog posts
+        'show_in_rest'       => true // Enables Gutenberg editor
+    );
+
+    register_post_type('portfolio', $args);
+}
+add_action('init', 'create_portfolio_post_type');
