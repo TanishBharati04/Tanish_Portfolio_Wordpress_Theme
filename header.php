@@ -4,8 +4,44 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php wp_head(); ?>
+
+    <!-- Customizer color scheme -->
+    <style>
+    :root {
+        --primary-color: <?php echo esc_attr(get_theme_mod('tanish_primary_color', '#3498db')); ?>;
+        --secondary-color: <?php echo esc_attr(get_theme_mod('tanish_secondary_color', '#2ecc71')); ?>;
+        --background-color: <?php echo esc_attr(get_theme_mod('tanish_bg_color', '#ffffff')); ?>;
+        --link-color: <?php echo esc_attr(get_theme_mod('tanish_link_color', '#e74c3c')); ?>;
+    }
+
+    body {
+        background-color: var(--background-color);
+    }
+
+    a {
+        color: var(--link-color);
+    }
+
+    .btn {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: #fff;
+    }
+
+    .btn-secondary {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: #fff;
+    }
+
+    .btn:hover {
+        opacity: 0.8;
+    }
+</style>
+
 </head>
-<body <?php body_class(); ?>>
+<body <?php body_class(get_theme_mod('tanish_layout_type', 'wide') . '-layout'); ?>>
+
 <!-- <header>
     <h1><?php bloginfo('name'); ?></h1>
     <nav>

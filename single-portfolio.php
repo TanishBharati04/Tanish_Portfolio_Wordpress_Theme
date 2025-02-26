@@ -29,6 +29,20 @@
 
         </article>
     <?php endwhile; ?>
+
+    <?php
+    
+    $skills = get_the_terms(get_the_ID(), 'skills');
+
+    if($skills && !is_wp_error( $skills )) {
+        echo '<ul class="portfolio-skills">';
+        foreach ($skills as $skill) {
+            echo '<li><a href="' . get_term_link( $skill ) . '">' . esc_html( $skill->name ) . '</a></li>';
+        }
+        echo '</ul>';
+    }
+
+    ?>
 </main>
 
 <?php get_footer(); ?>
