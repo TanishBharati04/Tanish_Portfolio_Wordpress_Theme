@@ -1,0 +1,21 @@
+{
+  "name": "tanish-portfolio-theme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "wp-scripts build assets/js --output-path=build",
+    "start": "wp-scripts start assets/js --output-path=build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/scripts": "^30.12.0",
+    "ajv": "^8.17.1",
+    "ajv-keywords": "^5.1.0",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1"
+  }
+}

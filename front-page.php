@@ -14,9 +14,9 @@ get_header();
             <h2>Hi, I’m Tanish</h2>
             <p>I am a Software Engineer Intern based in Pune, India. I am pursuing MSc Computer Science with expertise in Java, MERN Stack, Python, Machine Lesarning. Currently I’m working in WisdmLabs. </p>
             <div class="links">
-                <a href="https://github.com" target="_blank"><img src="<?php echo esc_url(get_parent_theme_file_uri( 'assets/images/github.jfif' )); ?>" alt="Github"></a>
-                <a href="https://linkedin.com" target="_blank"><img src="<?php echo esc_url(get_parent_theme_file_uri( 'assets/images/linkedin.jfif' )); ?>" alt="LinkedIn"></a>
-                <a href="https://twitter.com" target="_blank"><img src="<?php echo esc_url(get_parent_theme_file_uri('assets/images/twitter.jfif')); ?>" alt="Twitter"></a>
+                <a href="https://github.com" target="_blank"><img src="<?php echo esc_url(get_parent_theme_file_uri( 'assets/images/github.jpg' )); ?>" alt="Github"></a>
+                <a href="https://linkedin.com" target="_blank"><img src="<?php echo esc_url(get_parent_theme_file_uri( 'assets/images/linkedin.jpg' )); ?>" alt="LinkedIn"></a>
+                <a href="https://x.com" target="_blank"><img src="<?php echo esc_url(get_parent_theme_file_uri('assets/images/x.jpg')); ?>" alt="X"></a>
             </div>
         </div>
     </section>

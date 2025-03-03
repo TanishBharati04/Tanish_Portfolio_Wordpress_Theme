@@ -33,6 +33,9 @@
             <?php comments_template(); ?> <!-- Comments Section -->
         </article>
     <?php endwhile; ?>
+
+
+
 </main>
 
 <?php get_footer(); ?> <!-- Include Footer -->

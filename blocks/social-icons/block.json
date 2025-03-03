@@ -1,0 +1,10 @@
+{
+    "apiVersion" : 2,
+    "name" : "tanish/social-icons",
+    "title" : "Social Media Icons",
+    "category" : "widgets",
+    "icon" : "share",
+    "editorScript" : "file:./index.js",
+    "editorStyle" : "file:./editor.css",
+    "style" : "file:./style.css"
+}

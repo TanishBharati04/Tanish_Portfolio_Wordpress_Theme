@@ -1,0 +1,8 @@
+.social-media-icons {
+    display: flex;
+    gap: 10px;
+}
+.social-media-icons a img {
+    width: 30px;
+    height: 30px;
+}

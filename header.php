@@ -53,6 +53,8 @@
 <header>
     <h1><?php bloginfo('name'); ?></h1>
 
+    <?php tanish_breadcrumbs(); ?>
+
     <nav>
         <a href="#about">About</a>
         <a href="#skills">Skills</a>

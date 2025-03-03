@@ -257,136 +257,197 @@ function register_footer_widget_area() {
 }
 add_action('widgets_init', 'register_footer_widget_area');
 
-// Add a Color Scheme section in your WordPress Theme Customizer that includes options for: Primary Color, Secondary Color, Background Color, Hyperlink Color.
-function customize_color_scheme_register($wp_customize) {
-    // Add Color Scheme Section
-    $wp_customize->add_section('tanish_color_scheme', array(
-        'title'       => __('Color Scheme', 'tanish'),
-        'priority'    => 25,
-        'description' => __('Customize the theme colors.', 'tanish'),
+// Themes Customization
+function themes_customize_register($wp_customize) {
+      // 🔹 Main Section: Theme Customization
+    $wp_customize->add_panel('tanish_theme_customization', array(
+        'title' => __('Theme Customization', 'tanish'),
+        'priority' => 30,
+        'description' => __('Customize colors, typography, and layout.', 'tanish'),
     ));
 
-    // Primary Color
-    $wp_customize->add_setting('tanish_primary_color', array(
-        'default'   => '#3498db', // Default Blue
+    /* ============================
+       1️⃣ SUB-SECTION: COLOR SCHEME
+       ============================ */
+       $wp_customize->add_section('tanish_color_scheme', array(
+            'title' => __('Color Scheme', 'tanish'),
+            'priority' => 1,
+            'panel' => 'tanish_theme_customization',
+       ));
+
+       // Primary Color
+       $wp_customize->add_setting('tanish_primary_color', array(
+        'default' => '#3498db', //Default blue
         'transport' => 'refresh',
-    ));
+       ));
 
-    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'tanish_primary_color', array(
-        'label'    => __('Primary Color', 'tanish'),
-        'section'  => 'tanish_color_scheme',
-        'settings' => 'tanish_primary_color',
-    )));
+       $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'tanish_primary_color', array(
+        'label' => __('Primary Color'),
+        'section' => 'tanish_color_scheme',
+        'setting' => 'tanish_primary_color',
+       )));
 
-    // Secondary Color
-    $wp_customize->add_setting('tanish_secondary_color', array(
-        'default'   => '#2ecc71', // Default Green
-        'transport' => 'refresh',
-    ));
+       // Secondary Color
+        $wp_customize->add_setting('tanish_secondary_color', array(
+            'default'   => '#2ecc71', // Default Green
+            'transport' => 'refresh',
+        ));
 
-    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'tanish_secondary_color', array(
-        'label'    => __('Secondary Color', 'tanish'),
-        'section'  => 'tanish_color_scheme',
-        'settings' => 'tanish_secondary_color',
-    )));
+        $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'tanish_secondary_color', array(
+            'label'    => __('Secondary Color', 'tanish'),
+            'section'  => 'tanish_color_scheme',
+            'settings' => 'tanish_secondary_color',
+        )));
 
-    // Background Color
-    $wp_customize->add_setting('tanish_bg_color', array(
-        'default'   => '#ffffff', // Default White
-        'transport' => 'refresh',
-    ));
+        // Background Color
+        $wp_customize->add_setting('tanish_bg_color', array(
+            'default'   => '#ffffff', // Default White
+            'transport' => 'refresh',
+        ));
 
-    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'tanish_bg_color', array(
-        'label'    => __('Background Color', 'tanish'),
-        'section'  => 'tanish_color_scheme',
-        'settings' => 'tanish_bg_color',
-    )));
+        $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'tanish_bg_color', array(
+            'label'    => __('Background Color', 'tanish'),
+            'section'  => 'tanish_color_scheme',
+            'settings' => 'tanish_bg_color',
+        )));
 
-    // Hyperlink Color
-    $wp_customize->add_setting('tanish_link_color', array(
-        'default'   => '#e74c3c', // Default Red
-        'transport' => 'refresh',
-    ));
+        // Hyperlink Color
+        $wp_customize->add_setting('tanish_link_color', array(
+            'default'   => '#e74c3c', // Default Red
+            'transport' => 'refresh',
+        ));
 
-    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'tanish_link_color', array(
-        'label'    => __('Hyperlink Color', 'tanish'),
-        'section'  => 'tanish_color_scheme',
-        'settings' => 'tanish_link_color',
-    )));
-}
+        $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'tanish_link_color', array(
+            'label'    => __('Hyperlink Color', 'tanish'),
+            'section'  => 'tanish_color_scheme',
+            'settings' => 'tanish_link_color',
+        )));
 
-add_action('customize_register', 'customize_color_scheme_register');
-     
-// Typography customization - font family and font size
-function customize_typography_register($wp_customize) {
-    // Add a section for Typography
-    $wp_customize->add_section('tanish_typography', array(
+        /* ============================
+        2️⃣ SUB-SECTION: TYPOGRAPHY
+        ============================ */
+        $wp_customize->add_section('tanish_typography', array(
         'title'       => __('Typography', 'tanish'),
-        'priority'    => 30,
-        'description' => __('Customize the font and typography settings.', 'tanish'),
-    ));
+        'priority'    => 2,
+        'panel'       => 'tanish_theme_customization',));
 
-    // Font Selection Dropdown
-    $wp_customize->add_setting('tanish_font_family', array(
-        'default'   => 'Poppins',
-        'transport' => 'refresh',
-    ));
-
-    $wp_customize->add_control('tanish_font_family', array(
-        'label'    => __('Font Family', 'tanish'),
-        'section'  => 'tanish_typography',
-        'type'     => 'select',
-        'choices'  => array(
-            'Poppins'    => 'Poppins',
-            'Roboto'     => 'Roboto',
-            'Lato'       => 'Lato',
-            'Montserrat' => 'Montserrat',
-            'Open Sans'  => 'Open Sans',
-        ),
-    ));
-
-    // Font Sizes for Headings and Paragraph
-    $elements = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p');
-    foreach ($elements as $el) {
-        // Font Size
-        $wp_customize->add_setting("tanish_{$el}_font_size", array(
-            'default'   => 16,
+        // Font Selection Dropdown
+        $wp_customize->add_setting('tanish_font_family', array(
+            'default'   => 'Poppins',
             'transport' => 'refresh',
         ));
 
-        $wp_customize->add_control("tanish_{$el}_font_size", array(
-            'label'    => ucfirst($el) . ' Font Size',
-            'section'  => 'tanish_typography',
-            'type'     => 'number',
-            'input_attrs' => array(
-                'min'  => 8,
-                'max'  => 72,
-                'step' => 1,
-            ),
-        ));
-
-        // Font Size Unit
-        $wp_customize->add_setting("tanish_{$el}_font_unit", array(
-            'default'   => 'px',
-            'transport' => 'refresh',
-        ));
-
-        $wp_customize->add_control("tanish_{$el}_font_unit", array(
-            'label'    => ucfirst($el) . ' Font Size Unit',
+        $wp_customize->add_control('tanish_font_family', array(
+            'label'    => __('Font Family', 'tanish'),
             'section'  => 'tanish_typography',
             'type'     => 'select',
             'choices'  => array(
-                'px'  => 'Pixels (px)',
-                '%'   => 'Percentage (%)',
-                'em'  => 'em',
-                'rem' => 'rem',
-                'vw'  => 'Viewport Width (vw)',
+                'Poppins'    => 'Poppins',
+                'Roboto'     => 'Roboto',
+                'Lato'       => 'Lato',
+                'Montserrat' => 'Montserrat',
+                'Open Sans'  => 'Open Sans',
             ),
         ));
-    }
-};
 
-add_action('customize_register', 'customize_typography_register');
+        // Font Sizes for Headings and Paragraph
+        $elements = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p');
+        foreach($elements as $el) {
+            // Font Size
+            $wp_customize->add_setting("tanish_{$el}_font_size", array(
+                'default'   => 16,
+                'transport' => 'refresh',
+            ));
+
+            $wp_customize->add_control("tanish_{$el}_font_size", array(
+                'label'    => ucfirst($el) . ' Font Size',
+                'section'  => 'tanish_typography',
+                'type'     => 'number',
+                'input_attrs' => array(
+                    'min'  => 8,
+                    'max'  => 72,
+                    'step' => 1,
+                ),
+            ));
+
+            // Font Size Unit
+            $wp_customize->add_setting("tanish_{$el}_font_unit", array(
+                'default'   => 'px',
+                'transport' => 'refresh',
+            ));
+
+            $wp_customize->add_control("tanish_{$el}_font_unit", array(
+                'label'    => ucfirst($el) . ' Font Size Unit',
+                'section'  => 'tanish_typography',
+                'type'     => 'select',
+                'choices'  => array(
+                    'px'  => 'Pixels (px)',
+                    '%'   => 'Percentage (%)',
+                    'em'  => 'em',
+                    'rem' => 'rem',
+                    'vw'  => 'Viewport Width (vw)',
+                ),
+            ));
+        }
+
+        /* ============================
+        3️⃣ SUB-SECTION: LAYOUT OPTIONS
+        ============================ */
+        $wp_customize->add_section('tanish_layout_options', array(
+            'title'       => __('Layout Options', 'tanish'),
+            'priority'    => 3,
+            'panel' => 'tanish_theme_customization',
+        ));
+
+        $wp_customize->add_setting('tanish_layout_type', array(
+            'default'   => 'wide',
+            'transport' => 'refresh', 
+        ));
+
+        $wp_customize->add_control('tanish_layout_type', array(
+            'label'    => __('Select Layout', 'tanish'),
+            'section'  => 'tanish_layout_options',
+            'type'     => 'radio',
+            'choices'  => array(
+                'block' => __('Block Layout (Boxed)', 'tanish'),
+                'wide'  => __('Wide Layout (Full Width)', 'tanish'),
+            ),
+        ));
+
+        /* ============================
+        4️⃣ SUB-SECTION: SOCIAL MEDIA SETTINGS
+        ============================ */
+        $wp_customize->add_section('tanish_social_media', array(
+            'title' => __('Social Media Settings', 'tanish'),
+            'priority' => 4,
+            'panel' => 'tanish_theme_customization',
+        ));
+
+        // List of Social Media Platforms
+        $social_platforms = array(
+            'github' => 'Github',
+            'linkedin' => 'LinkedIn',
+            'x' => 'X',
+            'youtube' => 'Youtube',
+            'facebook' => 'Facebook',
+        );
+
+        foreach($social_platforms as $key => $label) {
+            $wp_customize->add_setting("tanish_{$key}_link", array(
+                'default' => '',
+                'transport' => 'refresh',
+                'sanitize_callback' => 'esc_url_raw',
+            ));
+
+            $wp_customize->add_control("tanish_{$key}_link", array(
+                'label' => __("{$label} link", 'tanish'),
+                'section' => 'tanish_social_media',
+                'type' => 'url',
+            ));
+        }
+}
+
+add_action('customize_register', 'themes_customize_register');
 
 // Apply the Selected Font and Font Sizes
 function tanish_typography_css() {
@@ -411,34 +472,6 @@ function tanish_enqueue_fonts() {
     wp_enqueue_style('tanish-custom-fonts', get_template_directory_uri() . '/assets/fonts/fonts.css', array(), null);
 }
 add_action('wp_enqueue_scripts', 'tanish_enqueue_fonts');
-
-// Layout Customization
-function customize_layout_register($wp_customize) {
-    // Add Layout Options Section
-    $wp_customize->add_section('tanish_layout_options', array(
-        'title'       => __('Layout Options', 'tanish'),
-        'priority'    => 31,
-        'description' => __('Select between Block Layout (boxed) or Wide Layout (full-width).', 'tanish'),
-    ));
-
-    // Add Layout Setting
-    $wp_customize->add_setting('tanish_layout_type', array(
-        'default'   => 'wide',
-        'transport' => 'refresh', 
-    ));
-
-    // Add Layout Control (Radio Button)
-    $wp_customize->add_control('tanish_layout_type', array(
-        'label'    => __('Select Layout', 'tanish'),
-        'section'  => 'tanish_layout_options',
-        'type'     => 'radio',
-        'choices'  => array(
-            'block' => __('Block Layout (Boxed)', 'tanish'),
-            'wide'  => __('Wide Layout (Full Width)', 'tanish'),
-        ),
-    ));
-}
-add_action('customize_register', 'customize_layout_register');
 
 // Apply Layout Styles Dynamically
 function tanish_layout_css() {
@@ -471,3 +504,64 @@ function tanish_customize_live_preview() {
     wp_enqueue_script('tanish-customizer', get_template_directory_uri() . '/assets/js/customizer.js', array('jquery', 'customize-preview'), null, true);
 }
 add_action('customize_preview_init', 'tanish_customize_live_preview');
+
+// function remove_customize_unpreviewable() {
+//     ?>
+//     <script>
+//         document.addEventListener("DOMContentLoaded", function() {
+//             document.querySelectorAll(".customize-unpreviewable").forEach(el => {
+//                 el.classList.remove("customize-unpreviewable");
+//             });
+//         });
+//     </script>
+//     <?php
+// }
+// add_action('wp_footer', 'remove_customize_unpreviewable');
+
+
+// Shortcode example
+add_shortcode('project_slider', 'project_slider_callback');
+
+function project_slider_callback() {
+    return 'adding project slider';
+}
+
+// Guternberg blocks
+function social_icon_blocks_register() {
+    register_block_type(get_template_directory() . '/blocks/social-icons');
+}
+
+add_action('init', 'social_icon_blocks_register');
+
+// Template parts
+register_block_pattern_category(
+    'tanish-portfolio-theme',
+    array( 'label' => __( 'Tanish Theme Parts', 'tanish-portfolio-theme'))
+);
+
+// Breadcrumb navigation
+function tanish_breadcrumbs() {
+    if (is_front_page()) {
+        return; // Don't show breadcrumbs on the homepage
+    }
+
+    echo '<nav class="breadcrumb">';
+    echo '<a href="' . home_url() . '">Home</a> &raquo; ';
+
+    if (is_category() || is_single()) {
+        the_category(' &raquo; ');
+        if (is_single()) {
+            echo ' &raquo; <span>' . get_the_title() . '</span>';
+        }
+    } elseif (is_page()) {
+        echo '<span>' . get_the_title() . '</span>';
+    } elseif (is_archive()) {
+        echo '<span>' . get_the_archive_title() . '</span>';
+    } elseif (is_search()) {
+        echo '<span>Search results for "' . get_search_query() . '"</span>';
+    } elseif (is_404()) {
+        echo '<span>Page Not Found</span>';
+    }
+
+    echo '</nav>';
+}
