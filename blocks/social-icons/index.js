@@ -6,7 +6,7 @@ import save from './save.js';
 registerBlockType('tanish/social-icons', {
     title : __('Social Media Icons', 'tanish'),
     category : 'widgets',
-    icon : 'share',
+    icon : 'share(alt2)',
     edit,
     save,
 });

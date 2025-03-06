@@ -7,78 +7,6 @@ function My_Portfolio_scripts() {
 add_action('wp_enqueue_scripts', 'My_Portfolio_scripts');
 add_theme_support('post-thumbnails');
 
-// function tanish_portfolio_menus() {
-//     register_nav_menus(array(
-//         'primary-menu' => __('Primary Menu', 'tanish-portfolio')
-//     ));
-// }
-// add_action('after_setup_theme', 'tanish_portfolio_menus');
-
-// add_action( 'after_setup_theme', 'theme_slug_setup' );
-
-// function theme_slug_setup() {
-// 	add_editor_style( array(
-// 		get_stylesheet_uri(),
-// 		get_parent_theme_file_uri( 'assets/css/index.css' )
-// 	) );
-// }
-
-// function create_project_post_type() {
-//     register_post_type( 'project', 
-//         array (
-//             'labels' => array (
-//                 'name' => __('Projects'),
-//                 'singular_name' => __('Project'),
-//             ),
-//             'public' => true,
-//             'has_archive' => true,
-//             'supports' => array('title', 'editor', 'thumbnail', 'excerpt'),
-//         )
-//     );
-// }
-
-// add_action( 'init', 'create_project_post_type');
-
-function create_project_post_type() {
-    $labels = array(
-        'name'               => __('Projects'),
-        'singular_name'      => __('Project'),
-        'menu_name'          => __('Projects'),
-        'name_admin_bar'     => __('Project'),
-        'add_new'            => __('Add New'),
-        'add_new_item'       => __('Add New Project'),
-        'new_item'           => __('New Project'),
-        'edit_item'          => __('Edit Project'),
-        'view_item'          => __('View Project'),
-        'all_items'          => __('All Projects'),
-        'search_items'       => __('Search Projects'),
-        'not_found'          => __('No projects found'),
-        'not_found_in_trash' => __('No projects found in Trash')
-    );
-
-    // error_log('printing labels ------------------------------------------');
-    // error_log(print_r($labels, 1));
-
-    $args = array(
-        'labels'             => $labels,
-        'public'             => true,
-        'publicly_queryable' => true,
-        'show_ui'            => true,
-        'show_in_menu'       => true,
-        'query_var'          => true,
-        'rewrite'            => array('slug' => 'projects'),
-        'capability_type'    => 'post',
-        'has_archive'        => true,
-        'hierarchical'       => false,
-        'menu_position'      => 5,
-        'supports'           => array('title', 'editor', 'thumbnail', 'excerpt', 'comments', 'custom-fields', 'revisions'),
-        'taxonomies'         => array('category', 'post_tag'), // Enables categories & tags like blog posts
-        'show_in_rest'       => true // Enables Gutenberg editor
-    );
-
-    register_post_type('project', $args);
-}
-add_action('init', 'create_project_post_type');
 
 // Layout for custom post type => custom_single.php
 function create_portfolio_post_type() {
@@ -147,89 +75,7 @@ function register_skills_taxonomy() {
 
 add_action( 'init', 'register_skills_taxonomy' );
 
-// Add a custom metabox for Project Details
-function add_project_details_metabox() {
-    add_meta_box( 'project_details', 
-        'Project Details', 
-        'render_project_details_metabox', 
-        'project', 
-        'normal', 
-        'high', 
-    );
-}
 
-add_action( 'add_meta_boxes', 'add_project_details_metabox' );
-
-function render_project_details_metabox($post) {
-    // Retrieve current values if available
-    $project_start_date = get_post_meta( $post->ID, '_project_start_date', true );
-    $project_end_date = get_post_meta( $post->ID, '_project_end_date', true );
-
-    // Security nonce
-    wp_nonce_field('save_project_details', 'project_details_nonce');
-
-    ?>
-
-    <style>
-        .project-details-card {
-            background:rgb(123, 133, 242);
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0px 2px 5px rgba(30, 26, 48, 0.1);
-            max-width: 100%;
-        }
-        .project-details-card label {
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
-        }
-        .project-details-card input {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-    </style>
-
-    <div class="project-details-card">
-        <label for="project_start_date">Project Start Date:</label>
-        <input type="date" id="project_start_date" name="project_start_date" value="<?php echo esc_attr($project_start_date); ?>">
-
-        <label for="project_end_date">Project Completion Date:</label>
-        <input type="date" id="project_end_date" name="project_end_date" value="<?php echo esc_attr($project_end_date); ?>">
-    </div>
-    <?php
-
-}
-
-// save the data when the user clicks Save/Update.
-function save_project_details($post_id) {
-    // Verify nonce
-    if(!isset($_POST['project_details_nonce']) || !wp_verify_nonce( $_POST['project_details_nonce'], 'save_project_details' )) {
-        return;
-    }
-
-    // Prevent autosave from overwriting values
-    if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-        return;
-    }
-
-    // Ensure user has permission
-    if(!current_user_can( 'edit_post', $post_id )) {
-        return;
-    }
-
-    // Save Start Date
-    if(isset($_POST['project_start_date'])) {
-        update_post_meta( $post_id, '_project_start_date', sanitize_text_field( $_POST['project_start_date'] ));
-    }
-
-    // Save End Date
-    if(isset($_POST['project_end_date'])) {
-        update_post_meta( $post_id, '_project_end_date', sanitize_text_field( $_POST['project_end_date'] ));
-    }
-}
 
 // Widget area - sidebar
 function register_custom_widget_areas() {
@@ -505,18 +351,7 @@ function tanish_customize_live_preview() {
 }
 add_action('customize_preview_init', 'tanish_customize_live_preview');
 
-// function remove_customize_unpreviewable() {
-//     ?>
-//     <script>
-//         document.addEventListener("DOMContentLoaded", function() {
-//             document.querySelectorAll(".customize-unpreviewable").forEach(el => {
-//                 el.classList.remove("customize-unpreviewable");
-//             });
-//         });
-//     </script>
-//     <?php
-// }
-// add_action('wp_footer', 'remove_customize_unpreviewable');
+
 
 
 // Shortcode example
@@ -531,7 +366,7 @@ function social_icon_blocks_register() {
     register_block_type(get_template_directory() . '/blocks/social-icons');
 }
 
-add_action('init', 'social_icon_blocks_register');
+// add_action('init', 'social_icon_blocks_register');
 
 // Template parts
 register_block_pattern_category(

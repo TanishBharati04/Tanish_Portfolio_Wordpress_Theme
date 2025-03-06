@@ -3,7 +3,7 @@
     "name" : "tanish/social-icons",
     "title" : "Social Media Icons",
     "category" : "widgets",
-    "icon" : "share",
+    "icon" : "share(alt2)",
     "editorScript" : "file:./index.js",
     "editorStyle" : "file:./editor.css",
     "style" : "file:./style.css"
